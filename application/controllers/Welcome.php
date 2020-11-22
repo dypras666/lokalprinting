@@ -130,5 +130,69 @@ class Welcome extends CI_Controller {
 		}
 
 	}
+
+	public function nota_kecil($kode)
+	{
+		
+		header('Content-Type: application/json');
+		$uri = "https://sim.saktiputra.com/api/plastik/GetNota/".$kode;
+
+		$ci = curl_init();
+		curl_setopt( $ci, CURLOPT_URL, $uri );
+		curl_setopt( $ci, CURLOPT_RETURNTRANSFER, 1 );
+		$fetch =   curl_exec( $ci  );
+		// echo $fetch;
+		$data = json_decode($fetch); 
+		// var_dump($data);
+		$connector = new WindowsPrintConnector('ZJ-58');
+		$printer = new Printer($connector);    
+		try { 
+				$printer->initialize();
+		        $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
+		        $printer->setJustification(Printer::JUSTIFY_CENTER); // Setting teks menjadi rata tengah
+		        $printer->text($data->data[0]->cabang->nama."\n");
+		        $printer->text($data->data[0]->cabang->alamat."\n");
+		        $printer->text("\n");
+			 
+
+			  // Data transaksi
+		        $printer->initialize();
+		        $printer->text("kasir: ".$data->data[0]->kasir."\n"); 
+		        $printer->text("Customer: ".$data->data[0]->customer."\n"); 
+		        $printer->text("NO NOTA: ".$data->data[0]->kode." \n");
+
+
+		         // Membuat tabel
+		        $printer->initialize(); // Reset bentuk/jenis teks
+		        $printer->text("----------------------------------------\n");
+		        $printer->text("PRODUK");
+		        $printer->text("----------------------------------------\n");
+		        foreach ($data->data[0]->produk as $v) { 
+		        $printer->text($v->produk . "\n". $v->qty. "" .$v->satuan " X " $v->harga . "\n ".  $v->harga_asli ."\n Diskon : ". $v->diskon ); 
+		    	}
+		        $printer->text("----------------------------------------\n");
+		        $printer->text("Total: ".  $data->data[0]->total->harga_asli); 
+		        $printer->text("Diskon: ". $data->data[0]->total->diskon); 
+		        $printer->text("S.Total: ". $data->data[0]->total->harga); 
+		        $printer->text("Bayar: ". $data->data[0]->total->bayar); 
+		        $printer->text("Kembali: ". $data->data[0]->total->kembali);
+		        $printer->text("\n");
+
+
+
+		          // Pesan penutup
+		        $printer->initialize();
+		        $printer->setJustification(Printer::JUSTIFY_CENTER);
+		        $printer->text("Terima kasih telah berbelanja\n"); 
+		        $printer->text($data->data[0]->tanggal."\n"); 
+		        $printer->feed(2);
+				$printer -> cut();
+				$printer -> close();
+
+		} finally {
+		    $printer -> close();
+		}
+
+	}
 	
 }
