@@ -37,7 +37,7 @@ class Welcome extends CI_Controller {
 		// echo $fetch;
 		$data = json_decode($fetch); 
 		// var_dump($data);
-		$connector = new WindowsPrintConnector('printer_kasir_2');
+		$connector = new WindowsPrintConnector('ZJ-58');
 		$printer = new Printer($connector);
 		   function buatBaris4Kolom($kolom1, $kolom2, $kolom3, $kolom4) {
             // Mengatur lebar setiap kolom (dalam satuan karakter)
@@ -168,7 +168,7 @@ class Welcome extends CI_Controller {
 		        $printer->text("PRODUK");
 		        $printer->text("----------------------------------------\n");
 		        foreach ($data->data[0]->produk as $v) { 
-		        $printer->text($v->produk . "\n". $v->qty. "" .$v->satuan " X " $v->harga . "\n ".  $v->harga_asli ."\n Diskon : ". $v->diskon ); 
+		        $printer->text($v->produk . "\n". $v->qty . "" .$v->satuan ." X ". $v->harga . "\n ".  $v->harga_asli ."\n Diskon : ". $v->diskon ); 
 		    	}
 		        $printer->text("----------------------------------------\n");
 		        $printer->text("Total: ".  $data->data[0]->total->harga_asli); 
