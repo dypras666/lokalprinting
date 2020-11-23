@@ -168,7 +168,7 @@ class Welcome extends CI_Controller {
 		        $printer->text("PRODUK \n");
 		        $printer->text("-----------------------------\n");
 		        foreach ($data->data[0]->produk as $v) { 
-		        $printer->text($v->produk . "\n". $v->qty. "" .$v->satuan ." X ". $v->harga . "\n ".  $v->harga_asli ."\n Diskon : ". $v->diskon); 
+		        $printer->text($v->produk . "\n". $v->qty. "" .$v->satuan ." X ". $v->harga . " =  ".  $v->harga_asli ."\n Diskon : ". $v->diskon); 
 		        $printer->text("\n");
 		    	}
 		        $printer->text("------------------------------\n");
