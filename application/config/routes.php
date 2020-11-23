@@ -52,4 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['nota/(:any)'] = "welcome/nota/$1";
+$route['nota_kecil/(:any)'] = "welcome/nota_kecil/$1";
 $route['translate_uri_dashes'] = FALSE;
