@@ -164,30 +164,34 @@ class Welcome extends CI_Controller {
 
 		         // Membuat tabel
 		        $printer->initialize(); // Reset bentuk/jenis teks
-		        $printer->text("----------------------------------------\n");
+		        $printer->text("-----------------------------\n");
 		        $printer->text("PRODUK");
-		        $printer->text("----------------------------------------\n");
+		        $printer->text("-----------------------------\n");
 		        foreach ($data->data[0]->produk as $v) { 
-		        $printer->text($v->produk . "\n". $v->qty. "" .$v->satuan " X " $v->harga . "\n ".  $v->harga_asli ."\n Diskon : ". $v->diskon ); 
+		        $printer->text($v->produk . "\n". $v->qty. "" .$v->satuan ." X ". $v->harga . "\n ".  $v->harga_asli ."\n Diskon : ". $v->diskon); 
+		        $printer->text("\n");
 		    	}
-		        $printer->text("----------------------------------------\n");
+		        $printer->text("------------------------------\n");
 		        $printer->text("Total: ".  $data->data[0]->total->harga_asli); 
+		        $printer->text("\n");
 		        $printer->text("Diskon: ". $data->data[0]->total->diskon); 
+		        $printer->text("\n");
 		        $printer->text("S.Total: ". $data->data[0]->total->harga); 
+		        $printer->text("\n");
 		        $printer->text("Bayar: ". $data->data[0]->total->bayar); 
+		        $printer->text("\n");
 		        $printer->text("Kembali: ". $data->data[0]->total->kembali);
 		        $printer->text("\n");
 
 
-
-		          // Pesan penutup
+		        // Pesan penutup
 		        $printer->initialize();
 		        $printer->setJustification(Printer::JUSTIFY_CENTER);
 		        $printer->text("Terima kasih telah berbelanja\n"); 
 		        $printer->text($data->data[0]->tanggal."\n"); 
 		        $printer->feed(2);
-				$printer -> cut();
-				$printer -> close();
+				$printer->cut();
+				$printer->close();
 
 		} finally {
 		    $printer -> close();
