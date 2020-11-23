@@ -165,7 +165,7 @@ class Welcome extends CI_Controller {
 		         // Membuat tabel
 		        $printer->initialize(); // Reset bentuk/jenis teks
 		        $printer->text("-----------------------------\n");
-		        $printer->text("PRODUK");
+		        $printer->text("PRODUK \n");
 		        $printer->text("-----------------------------\n");
 		        foreach ($data->data[0]->produk as $v) { 
 		        $printer->text($v->produk . "\n". $v->qty. "" .$v->satuan ." X ". $v->harga . "\n ".  $v->harga_asli ."\n Diskon : ". $v->diskon); 
