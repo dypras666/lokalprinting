@@ -2,12 +2,12 @@
 PANDUAN INSTALASI
 ###################
 
-#Software yang dibutuhkan
+Software yang dibutuhkan
 
 1. XAMPP > 7
 2. COMPOSER
 
-#Cara instalasi
+Cara instalasi
 
 1. buka folder direktori
 2. composer update
