@@ -122,8 +122,9 @@ class Welcome extends CI_Controller {
 		        $printer->text("Terima kasih telah berbelanja\n"); 
 		        $printer->text($data->data[0]->tanggal."\n"); 
 		        $printer->feed(2);
-				$printer -> cut();
-				$printer -> close();
+				$printer->cut();
+				$printer->pulse();
+				$printer->close();
 
 		} finally {
 		    $printer -> close();
@@ -191,6 +192,7 @@ class Welcome extends CI_Controller {
 		        $printer->text($data->data[0]->tanggal."\n"); 
 		        $printer->feed(2);
 				$printer->cut();
+				$printer->pulse();
 				$printer->close();
 
 		} finally {
